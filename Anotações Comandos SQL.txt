@@ -1,0 +1,117 @@
+Comandos SQL:
+-Select * from tabelapedidos; : Selecionar todos os dados da coluna tabela pedidos(recomendável colocar ponto e vírgula no final de cada comando)
+
+SELECT * FROM tabelafornecedores WHERE país_de_origem = 'China';: Selecionar da tabelafornecedores os fornecedores do pais de origem China (utilizar aspas simples para buscar um dado com caracter)
+
+SELECT DISTINCT cliente FROM tabelapedidos; Selecionar os clientes da tabela pedidos sem repetir
+
+CREATE TABLE tabelaclientes (
+  ID_Cliente INT PRIMARY KEY, 
+  Nome_cliente VARCHAR (250),
+  Informações_de_Contato VARCHAR (250));
+(Criação da tabelacliente, seguido das colunas, tipo de dados a receber e a qtd de caracteres)
+
+
+1 - Texto (String):
+CHAR: Armazena strings de tamanho fixo. Usado quando os valores têm um comprimento constante.
+VARCHAR: Armazena strings de tamanho variável. Apropriado para valores com comprimentos variáveis.
+TEXTO (TEXT): Armazena strings muito longas, como documentos ou descrições.
+
+2 - Numérico:
+INTEGER (INT): Armazena números inteiros.
+FLOAT: Armazena números de ponto flutuante, geralmente usados para valores com casas decimais.
+NUMERIC (DECIMAL): Armazena números com uma precisão específica, geralmente usados em aplicações financeiras.
+
+3 - Data e Hora:
+DATE: Armazena datas sem informações de horário.
+TIME: Armazena informações de horário.
+TIMESTAMP: Combina data e horário em um único tipo.
+
+4 - Booleano:
+BOOLEAN (BOOL): Armazena valores verdadeiros ou falsos.
+
+5 - Binário:
+BLOB (Binary Large Object): Armazena dados binários, como imagens, vídeos ou arquivos.
+BIT: Armazena valores binários, como 0 ou 1.
+
+Alteração de tabela:
+ALTER TABLE tabelaclientes ADD Endereço_Cliente VARCHAR (250);
+(alterei a tabela inserindo a coluna Endereço_Cliente com limite de 250 caracteres)
+
+ALTER TABLE tabelaclientes DROP COLUMN Endereço_Cliente;
+(apaguei a coluna Endereço_Cliente da tabela tabelaclientes)
+
+Apagar tabela:
+DROP TABLE tabelaclientes; (apaguei a tabela tabelaclientes)
+
+Alterar nome da coluna
+ALTER TABLE tabelacliente
+RENAME COLUMN endereço TO localização;
+
+Chave estrangeira:
+FOREIGN key (categoria) REFERENCES tabelacategorias (id_categoria),
+FOREIGN key (fornecedor) REFERENCES tabelafornecedores (id)
+(indiquei uma coluna (categoria ou fornecedor) que seria relacionada a uma outra coluna(id ou id_categorua) de outra tabela(tabelacategorias ou tabelafornecedores))
+
+Inserindo dados:
+INSERT INTO tabelacliente
+(id_cliente, nome_cliente, info_cliente, endereco_cliente)
+VALUES
+('2','Mayara Pedreira Dos Reis','maiara@email.com', 'avenida paulista, 250');
+(Primeiro o comando insert into, seguido do nome das colunas, após isso colocar o comando values seguido dos valores que serão preenchidos)
+
+Para inserir mais de um cliente faço o mesmo procedimento 2x igual o exemplo abaixo
+VALUES
+('2','Mayara Pedreira Dos Reis','maiara@email.com', 'avenida paulista, 250'),
+('3','Pedro Henrique Santana','pedro@email.com', 'avenida paulista, 100');
+
+INSERT INTO tabelapedidosgold 
+(id_pedido_gold,data_do_pedido_gold,status_gold, total_do_pedido_gold, cliente_gold,data_de_envio_estimada_gold)
+SELECT
+id,data_do_pedido,status,total_do_pedido,cliente,data_de_envio_estimada
+FROM
+tabelapedidos
+where total_do_pedido >= 400
+(Inseri na tabela tabelapedidosgol os dados preenchidos na coluna da tabela tabelapedidos onde o total do pedido é maior ou igual a 400
+
+Operadores lógicos:
+= Igual
+> Maior
+< Menor
+>= Maior ou igual
+<= Menor ou igual
+<> Diferente
+
+Fazer um select para dados que começam com a letra R
+SELECT * FROM tabelacliente
+WHERE nome cliente LIKE 'R%';
+(para string é necessário inserir o comando LIKE)
+
+Fazer um select para dados uma faixa de limite de dados
+SELECT * FROM tabelapedidos WHERE Data_do_Pedido BETWEEN '2023-08-1' AND '2023-11-22'
+
+SELECT * FROM tabelapedidos WHERE total_do_pedido = 200 and status ='Pendente';
+
+SELECT * FROM tabelapedidos WHERE status = 'Processando' OR status ='Pendente';
+(aplicação de filtros compostos)
+
+ORDENAÇÃO
+SELECT * from tabelaprodutos WHERE preco_compra BETWEEN 200 AND 600 ORDER BY preco_compra ASC;
+(Selecionei todos os dados da tabela tabelaprodutos onde o preco_compra está entre 200 e 600 e ordenei do menor para o mais a coluna preco_compra)
+
+Tipos de order by
+order by: ordem alfabética
+order by nomeColuna desc: ordem decrescente(menor no topo, maior por último)
+order by nomeColuna asc: ordem crescente(maior no topo, menor por último)
+order by nomeColuna limit 5: mostra os 5 primeiros
+
+ALIAS
+SELECT informações_de_contato AS apelido_cliente FROM tabelaclientes;
+(Selecionei a coluna informacoes_de_contato e apelidei de apelido_cliente)
+
+Atualizar campo preenchido
+UPDATE tabelacliente
+set info_cliente = 'email_correto@email.com'
+WHERE info_cliente = 'email_errado@email.com';
+(executei o comando update, setei a coluna e o preenchimento correto where(onde) preenchi o campo que estava errado)
+
