@@ -115,3 +115,13 @@ set info_cliente = 'email_correto@email.com'
 WHERE info_cliente = 'email_errado@email.com';
 (executei o comando update, setei a coluna e o preenchimento correto where(onde) preenchi o campo que estava errado)
 
+INNER Join
+Junção que retorna apenas os registros que existem nas duas tabelas.
+
+SELECT Cliente.nome, Cliente.cidade, Compras.produto, Compras.valor
+FROM Cliente
+INNER JOIN Compras ON Cliente.id_cliente = Compras.id_cliente;
+
+(Selecionei todas as colunas tabela cliente com excessão das chaves primária e estrangeira)
+(Com o inner join, juntei com a tabela compras colocando a chave primária da tabela cliente id_cliente e a chave estrangeira da tabela compras id_cliente)
+Então me foi retornado todos os cliente cadastrados que fizeram compras
